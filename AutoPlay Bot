@@ -1,4 +1,7 @@
--- AutoPlay Bot Script
-local autoPlayBotUrl = "https://raw.githubusercontent.com/iceyaq/AutoPlay-Bot/main/AutoPlay%20Bot"
-local autoPlayBotScript = game:HttpGet(autoPlayBotUrl)
-loadstring(autoPlayBotScript)()
+local success, err = pcall(function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/iceyaq/AutoPlay-Bot/main/AutoPlay%20Bot"))()
+end)
+
+if not success then
+    warn("Failed to load AutoPlay Bot script: " .. err)
+end
