@@ -1,0 +1,75 @@
+-- AutoPlay Bot Script for Roblox
+
+local Players = game:GetService("Players")
+local HttpService = game:GetService("HttpService")
+local StarterGui = game:GetService("StarterGui")
+
+-- Function to create a Notification GUI
+local function createNotificationGui()
+    local player = Players.LocalPlayer
+    local screenGui = Instance.new("ScreenGui")
+    screenGui.Name = "NotificationGui"
+    screenGui.Parent = player:WaitForChild("PlayerGui")
+
+    local frame = Instance.new("Frame")
+    frame.Size = UDim2.new(0.5, 0, 0.1, 0)
+    frame.Position = UDim2.new(0.25, 0, 0.05, 0)
+    frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    frame.BackgroundTransparency = 0.7
+    frame.BorderSizePixel = 0
+    frame.Parent = screenGui
+
+    local textLabel = Instance.new("TextLabel")
+    textLabel.Size = UDim2.new(1, 0, 1, 0)
+    textLabel.Text = "Discord - riofluxxx"
+    textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    textLabel.TextScaled = true
+    textLabel.BackgroundTransparency = 1
+    textLabel.TextStrokeTransparency = 0.8
+    textLabel.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+    textLabel.Parent = frame
+
+    return screenGui
+end
+
+-- Error Handling Function
+local function handleError(err)
+    print("An error occurred: " .. tostring(err))
+    -- Optionally: Log the error to a local file or use other local methods
+end
+
+-- Main AutoPlay Function
+local function autoPlay()
+    pcall(function()
+        -- Create Notification GUI
+        createNotificationGui()
+        
+        -- Example: Move the character forward
+        while true do
+            -- Check if character exists
+            local character = Players.LocalPlayer.Character
+            if character then
+                -- Move forward
+                local humanoid = character:FindFirstChildOfClass("Humanoid")
+                if humanoid then
+                    humanoid:Move(Vector3.new(0, 0, 1), true)
+                end
+                
+                -- Wait for a bit before next action
+                wait(1)
+            else
+                error("Character not found.")
+            end
+        end
+    end)
+end
+
+-- Initialize Script
+pcall(function()
+    autoPlay()
+end)
+
+-- Handle any unexpected errors
+xpcall(function()
+    autoPlay()
+end, handleError)
